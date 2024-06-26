@@ -50,6 +50,22 @@ int query(int ind,int low,int high,int l,int r){
     return max(left,right);
 }
 
+void update(int ind,int low,int high,int pos,int value){
+    if(low==high) {
+        seg[ind]=value;
+    }
+    else {
+        int mid=(low+high)/2;
+        if(pos<=mid){
+            update(2*ind+1,low,mid,pos,value);
+        }else{
+            update(2*index+2,mid+1,high,pos,value);
+        }
+        // for updating values for finding sum in range
+        seg[ind]=seg[2*ind+1]+seg(2*ind+2);
+    }
+}
+
 int main()
 {
     int n;cin>>n;
