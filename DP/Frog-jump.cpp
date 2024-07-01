@@ -1,3 +1,4 @@
+  // Frog wants to reach 0 to n-1 stair using minimum energy , he can jump 1 or 2 step
   class Solution{
     public:
     // Recursion 
