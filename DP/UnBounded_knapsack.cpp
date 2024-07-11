@@ -1,6 +1,6 @@
 class Solution{
     public:
-    // Recursion -> Time complexity - O(2^N) , space complexity - O(N)
+    // Recursion -> Time complexity - O(exponential) since we are staying at same index, space complexity - O(N)
     int solve(int index,int W,int val[],int wt[]){
         // base case
         if(index==0){
@@ -89,3 +89,24 @@ class Solution{
         }
         return curr[W];
     }
+
+// Space optimisation -> O(N)
+
+int cutRod(int price[], int n) {
+    //code here
+    vector<int>curr(n+1,0);
+    for(int index=0;index<n;index++){
+        for(int N=0;N<=n;N++ ){
+            if(index==0){
+                curr[N]=price[0]*N;continue;
+            }
+            
+            int notpick=curr[N];
+            int pick=INT_MIN;
+            int rodLength=index+1;
+            if(rodLength<=N) pick=price[index]+curr[N-rodLength];
+            curr[N]=max(pick,notpick);
+        }
+    }
+    return curr[n];
+}
