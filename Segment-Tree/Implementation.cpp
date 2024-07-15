@@ -34,8 +34,8 @@ void build(int ind,int low,int high){
 
     int mid=(low+high)/2;
     build(2*ind+1,low,mid);
-    build(2*index+2,mid+1,high);
-    seg[ind]=max(seg[2*index+1],seg[2*inde])
+    build(2*ind+2,mid+1,high);
+    seg[ind]=max(seg[2*ind+1],seg[2*ind+2]);
 
 
 }
@@ -44,25 +44,25 @@ int query(int ind,int low,int high,int l,int r){
     if(low>=l && high<=r) return seg[ind];
     // doesn't lie
     if(high<l || low>r) return INT_MIN;
-    int mid=(left+right)/2;
+    int mid=(low+high)/2;
     int left=query(2*ind+1,low,mid,l,r);
-    int right=query(2*index+2,mid+1,high,l,r);
+    int right=query(2*ind+2,mid+1,high,l,r);
     return max(left,right);
 }
 
 void update(int ind,int low,int high,int pos,int value){
     if(low==high) {
-        seg[ind]=value;
+        seg[ind]+=value;
     }
     else {
         int mid=(low+high)/2;
         if(pos<=mid){
             update(2*ind+1,low,mid,pos,value);
         }else{
-            update(2*index+2,mid+1,high,pos,value);
+            update(2*ind+2,mid+1,high,pos,value);
         }
         // for updating values for finding sum in range
-        seg[ind]=seg[2*ind+1]+seg(2*ind+2);
+        seg[ind]=seg[2*ind+1]+seg[2*ind+2];
     }
 }
 
