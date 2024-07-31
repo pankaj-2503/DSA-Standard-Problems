@@ -67,3 +67,91 @@ public:
             return true;
     }
 };
+
+
+// using dsu 
+#define ll long long
+class DisjointSet {
+    // Time complexity is O(4*alpha)
+    vector<int> rank, parent,size;
+public:
+    DisjointSet(int n) {
+        rank.resize(n + 1, 0);
+        parent.resize(n + 1);
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+        }
+    }
+
+    int findUPar(int node) {
+        if (node == parent[node])
+            return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+
+    void unionByRank(int u, int v) {
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if (ulp_u == ulp_v) return;
+        if (rank[ulp_u] < rank[ulp_v]) {
+            parent[ulp_u] = ulp_v;
+        }
+        else if (rank[ulp_v] < rank[ulp_u]) {
+            parent[ulp_v] = ulp_u;
+        }
+        else {
+            parent[ulp_v] = ulp_u;
+            rank[ulp_u]++;
+        }
+    }
+
+     void unionBySize(int u, int v) {
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if (ulp_u == ulp_v) return;
+        if (size[ulp_u] < size[ulp_v]) {
+            parent[ulp_u] = ulp_v;
+            size[ulp_v] += size[ulp_u];
+        }
+        else {
+            parent[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v];
+        }
+    }
+};
+class Solution {
+public:
+    bool canReachCorner(int X, int Y, vector<vector<int>>& circles) {
+        ll n=circles.size();
+        DisjointSet dsu(n+2);
+
+        for(int i=0;i<n;i++){
+            ll x=circles[i][0];
+            ll y=circles[i][1];
+            ll r=circles[i][2];
+
+            // touches top and left
+            if(x-r<=0 || y+r>=Y){
+                dsu.unionByRank(n,i);
+            }
+            // touches right and bottom
+            if(x+r>=X || y-r<=0){
+                dsu.unionByRank(n+1,i);
+            }
+            for(int j=0;j<i;j++){
+                ll x1=circles[j][0];
+                ll y1=circles[j][1];
+                ll r1=circles[j][2];
+                // checking distance between 2 circles
+                
+                if((x1-x)*(x1-x)+(y1-y)*(y1-y)<=((r1+r)*(r1+r))){
+                    dsu.unionByRank(i,j);
+                }
+            }
+
+        }
+
+        return dsu.findUPar(n)!=dsu.findUPar(n+1);
+
+    }
+};
