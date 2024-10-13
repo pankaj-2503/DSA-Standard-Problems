@@ -18,3 +18,34 @@ void sort012(vector<int>& arr) {
         }
     }
 }
+
+
+//  use this approach which is simple
+void countSort012(vector<int>& arr) {
+    int count0 = 0, count1 = 0, count2 = 0;
+
+    // Step 1: Count the occurrences of 0, 1, and 2
+    for (int num : arr) {
+        if (num == 0) count0++;
+        else if (num == 1) count1++;
+        else count2++;
+    }
+
+    // Step 2: Refill the array based on the counts
+    int i = 0;
+
+    // Fill all 0's
+    while (count0--) {
+        arr[i++] = 0;
+    }
+    
+    // Fill all 1's
+    while (count1--) {
+        arr[i++] = 1;
+    }
+    
+    // Fill all 2's
+    while (count2--) {
+        arr[i++] = 2;
+    }
+}
