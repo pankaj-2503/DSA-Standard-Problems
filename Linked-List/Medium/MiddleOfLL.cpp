@@ -25,4 +25,5 @@ ListNode* middleNode(ListNode* head) {
             slow=slow->next;
         }
         return slow;
-    }
+}
+
