@@ -51,9 +51,8 @@ long long divide(long long dividend, long long divisor) {
   // Initialize the quotient
   long long quotient = 0, temp = 0;
  
-  // test down from the highest bit and
-  // accumulate the tentative value for
-  // valid bit
+  // it checks if subtracting divisor from dividend still be Positive
+  // then stores it in temp and it's means quotient would be set bit at i'th position
   for (int i = 31; i >= 0; --i) {
  
     if (temp + (divisor << i) <= dividend) {
@@ -82,10 +81,7 @@ long long int divide(long long int dividend, long long int divisor)
         return 0;
     }
  
-    // Calculate sign of answer i.e.,
-    // Sign will be negative only if
-    // Either one of them is negative
-    // Otherwise it will be positive
+    
     long long int sign = (dividend < 0) ^ (divisor < 0);
  
     // abs() : function used to get the absolute values
@@ -94,8 +90,8 @@ long long int divide(long long int dividend, long long int divisor)
     if (divisor == 1)
         return ((sign == 0) ? dividend : -dividend);
  
-    // log() : function used to get the logarithmic value of the entered value [Gives the natural log of the entered number]
-    // exp() : Return the e^(entered value)
+    
+    // since property of log -> log(a) - log(b) = log(a/b) and exp is e^(log(a/b))
     long long int ans = exp(log(dividend) - log(divisor)) + 0.0000000001;
     /*
      adding 0.0000000001 to compensate for the precision errors
