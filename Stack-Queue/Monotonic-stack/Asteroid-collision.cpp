@@ -27,3 +27,30 @@ public:
         return ans;
     }
 };
+
+// or 
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int>s;
+        for(auto i:asteroids){
+            bool alive=true;
+            while(!s.empty() && s.top()>0 && i<0){
+                if(s.top()<-i){
+                    s.pop();
+                    continue;
+                }
+                else if(s.top()==-i) s.pop();
+                alive=false;
+                break;
+            }
+            if(alive) s.push(i);
+        }
+        vector<int>res(s.size());
+        for(int i=s.size()-1;i>=0;--i){
+            res[i]=s.top();
+            s.pop();
+        }
+        return res;
+    }
+};
