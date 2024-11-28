@@ -1,5 +1,6 @@
 class Solution {
 public:
+// TC: O(n)
     vector<int> decrypt(vector<int>& code, int k) {
         int n=code.size();
         vector<int>ans(n,0);
