@@ -5,66 +5,38 @@ using namespace std;
 // return floor value of the result
 
 // Time complexity : O(a/b)
-long long divide(long long dividend, long long int divisor)
-{
- 
-    // Calculate sign of divisor i.e.,
-    // sign will be negative only if
-    // either one of them is negative
-    // otherwise it will be positive
-    long long sign = ((dividend < 0) ^ (divisor < 0)) ? -1 : 1;
- 
-    // Update both divisor and
-    // dividend positive
-    dividend = abs(dividend);
-    divisor = abs(divisor);
- 
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+    long long a=dividend,b=divisor;
+       if(a == INT_MIN && b == -1)
+        return INT_MAX;
+  
+    // The sign will be negative only if sign of 
+    // divisor and dividend are different
+    int sign = ((a < 0) ^ (b < 0)) ? -1 : 1;
+
+    // remove sign of operands
+    a = abs(a);
+    b = abs(b);
+
     // Initialize the quotient
     long long quotient = 0;
-    while (dividend >= divisor) {
-        dividend -= divisor;
-        ++quotient;
-    }
- 
-    // Return the value of quotient with the appropriate
-    // sign.
-    return quotient * sign;
-}
 
+    // Iterate from most significant bit to 
+    // least significant bit
+    for (int i = 31; i >= 0; --i) {
 
-// another efficient way
-// Function to divide a by b and
-// return floor value it
-long long divide(long long dividend, long long divisor) {
- 
-  // Calculate sign of divisor i.e.,
-  // sign will be negative only if
-  // either one of them is negative
-  // otherwise it will be positive
-  int sign = ((dividend < 0) ^ 
-              (divisor < 0)) ? -1 : 1;
- 
-  // remove sign of operands
-  dividend = abs(dividend);
-  divisor = abs(divisor);
- 
-  // Initialize the quotient
-  long long quotient = 0, temp = 0;
- 
-  // it checks if subtracting divisor from dividend still be Positive
-  // then stores it in temp and it's means quotient would be set bit at i'th position
-  for (int i = 31; i >= 0; --i) {
- 
-    if (temp + (divisor << i) <= dividend) {
-      temp += divisor << i;
-      quotient |= 1LL << i;
+        // Check if (divisor << i) <= dividend
+        if ((b << i) <= a) {
+            a -= (b << i);
+            quotient |= (1LL << i);
+        }
     }
-  }
-  //if the sign value computed earlier is -1 then negate the value of quotient
-  if(sign==-1) quotient=-quotient;
-   
-  return quotient;
-}
+
+    return sign * quotient;
+    }
+};
 
 
 // Most optimised approach
