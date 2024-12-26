@@ -19,3 +19,33 @@ public:
         return ans;
     }
 };
+
+// using monotonic stack -> TC:O(2N),SC:O(N)
+    class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        int n=nums1.size();
+        int m=nums2.size();
+        stack<int>s;
+        unordered_map<int,int>mp;
+        for(int i=m-1;i>=0;i--){
+            while(!s.empty() && s.top()<nums2[i]){
+                s.pop();
+            }
+            if(s.empty()) mp[nums2[i]]=-1;
+            else mp[nums2[i]]=s.top();
+            s.push(nums2[i]);
+        }
+        // for(auto i:mp){
+        //     cout<<i.first<<" "<<i.second<<endl;
+        // }
+        vector<int>ans(n);
+        int j=0;
+        for(auto i:nums1){
+            if(mp.find(i)!=mp.end()){
+                ans[j]=mp[i];j++;
+            }
+        }
+        return ans;
+    }
+};

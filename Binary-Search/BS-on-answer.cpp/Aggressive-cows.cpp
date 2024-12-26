@@ -21,6 +21,7 @@ int aggressiveCows(vector<int> &stalls, int k) {
     while (low <= high) {
         int mid = (low + high) / 2;
         if (canWePlace(stalls, mid, k) == true) {
+            
             low = mid + 1;
         }
         else high = mid - 1;
