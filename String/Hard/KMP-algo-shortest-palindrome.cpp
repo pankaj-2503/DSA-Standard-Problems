@@ -1,6 +1,9 @@
 class Solution {
 public:
 // TC: O(N+M) , sc:O(N+M)
+// basically we are checking longest proper suffix which is also prefix of the string 
+// eg. abcdabcd lps of given string is 4 since abcd is longest proper suffix which is also prefix of the string
+// also lps[0]=0 since same character is not allowed to be prefix and suffix
     string shortestPalindrome(string s) {
         if(s=="") return s;
         string rev=s;
