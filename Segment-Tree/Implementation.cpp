@@ -25,7 +25,8 @@ int a[100005],seg[4*100005];
 // Auxiliary Space: O(2*N)
 
 
-void build(int ind,int low,int high){
+void build(int ind,int low,int high){ // here low and high are the range of the array a[],while ind is the index of the segment tree
+    // here we are using 2*ind+1 and 2*ind+2 to find the left and right child of the segment tree
     // base case
     if(low==high){
         seg[ind]=a[low];
@@ -39,7 +40,9 @@ void build(int ind,int low,int high){
 
 
 }
-int query(int ind,int low,int high,int l,int r){
+int query(int ind,int low,int high,int l,int r){ // here low and high are the range of the array a[],while ind is the index of the segment tree 
+    // l and r are the range of the query
+
     //completely lies within range
     if(low>=l && high<=r) return seg[ind];
     // doesn't lie
@@ -50,7 +53,9 @@ int query(int ind,int low,int high,int l,int r){
     return max(left,right);
 }
 
-void update(int ind,int low,int high,int pos,int value){
+v-oid update(int ind,int low,int high,int pos,int value){ // here low and high are the range of the array a[],while ind is the index of the segment tree
+    // l and r are the range of the query 
+    
     if(low==high) {
         seg[ind]+=value;
     }
