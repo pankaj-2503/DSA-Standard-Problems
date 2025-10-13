@@ -1,9 +1,3 @@
-// given a number reverse the number 
-// eg. Input: 2343
-//     Output: 3432
-//     Input: -1234
-//     Output: -4321
-
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -20,26 +14,25 @@ using namespace std;
 #define vi vector<ll>
 #define vip vector<pair<ll,ll>>
 
-ll reverse(int n){
 
-    ll ans=0;
-    while(n){
-        // check for overflow
-        if((ans>INT_MAX/10) || (ans<INT_MIN/10)) return 0;
+// When we want to find pow(x,n) we could not direclty multiply n times as it would be time consuming instead we use binary exponentation
+// 3^13= 3^(1101)=(3^8)*(3^4)*(3^1) , tc -> O(logn)
 
-        ans=ans*10+n%10;
-        n/=10;
 
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
     }
-
-    return ans;
-
+    return res;
 }
-
-
 int main()
-{   
-    int n=3434;
-    cout<<reverse(n)<<en;
+{
+
+
+
     return 0;
 }

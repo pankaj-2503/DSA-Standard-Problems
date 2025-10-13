@@ -16,7 +16,7 @@ for(int i=0;i<n;i++){
 for(int i=1;i<n;i++){
     int j=i-1;
     int curr=a[i];
-    while(a[j]>curr && j>=0){
+    while(j>=0 && a[j]>curr){ // as in cpp left to right evaluation happens
         a[j+1]=a[j];
         j--;
     }
