@@ -104,7 +104,7 @@ void heapify(int arr[],int n,int i){
 void heapSort(int arr[],int n){
     int size=n;
     while(size>1){
-        swap(arr[1],arr[size]);
+        swap(arr[size],arr[1]);
         size--;
         heapify(arr,size,1);
     }
