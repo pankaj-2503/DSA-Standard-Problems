@@ -1,4 +1,4 @@
-Input: 
+Input:
 Employee table:
 +-----+-------+------------+-----------+
 | id  | name  | department | managerId |
@@ -10,7 +10,7 @@ Employee table:
 | 105 | Anne  | A          | 101       |
 | 106 | Ron   | B          | 101       |
 +-----+-------+------------+-----------+
-Output: 
+Output:
 +------+
 | name |
 +------+
@@ -20,7 +20,18 @@ Output:
 
 select e1.name
 from Employee e1
-inner join Employee e2 
+inner join Employee e2
 on e1.id=e2.managerId
 group by e2.managerId
 having count(e2.managerId)>4
+
+-- or
+select e.name
+from employee e
+where id in (
+    select managerId
+    from employee
+    group by managerId
+    having count(*)>=5
+
+)
