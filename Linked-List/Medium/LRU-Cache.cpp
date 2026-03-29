@@ -1,9 +1,15 @@
 
-// get,put time complexity of O(1) , 
+// get,put time complexity of O(1)
+
+
+// LRU Cache least recently used
+// 4 main things -> priority changes , capacity at a times need to managed , tracking it in hashmap, add and delete node are happening, everything is maintained between head and tail node
+// Adding of nodes from right to left , deleting from left to right
+
 class LRUCache {
 public:
     class Node{
-        public: 
+        public:
             int key;
             int val;
             Node* prev;
@@ -44,7 +50,7 @@ public:
         prevv -> next = nextt;
         nextt -> prev = prevv;
     }
-    
+
     int get(int key) {
         if(m.find(key) != m.end()){
             Node* resNode = m[key];
@@ -59,7 +65,7 @@ public:
         }
         return -1;
     }
-    
+
     void put(int key, int value) {
         if(m.find(key) != m.end()){
             Node* curr = m[key];
