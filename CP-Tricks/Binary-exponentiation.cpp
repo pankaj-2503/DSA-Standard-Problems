@@ -20,6 +20,17 @@ using namespace std;
 
 const ll mod=1e9+7;
 
+// Recursive binpow
+long long binpow(ll a,ll b){
+    if(b==0) return 1;
+    ll res=binpow(a,b/2);
+    if(b%2==1){
+        return a*res*res;
+    }else{
+        return res*res;
+    }
+}
+
 // multiplicative inverse is calculated when a and b are co-prime , and fermet theorem is used which is nothing but binpow(a,b-2);
 long long binpow(long long a, long long b) {
     long long res = 1;
@@ -38,7 +49,7 @@ long long mulinv(ll a,ll b){
 
 
 
-// calculationg on ncr 
+// calculationg on ncr
  const ll MOD=1e9+7;
      ll modExp(ll a, ll b) {
         ll res = 1;
