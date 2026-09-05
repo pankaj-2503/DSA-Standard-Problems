@@ -194,7 +194,7 @@ int main() {
 
 
 // Inversion count  - Given an array of integers arr[]. You have to find the Inversion Count of the array. Inversion count is the number of pairs of elements (i, j) such that i < j and arr[i] > arr[j].
-
+// Here it's used for index compression in case when arr[i] if size greater than 10^9
 class ft{
     private:
     vector<int>bit;
@@ -228,7 +228,10 @@ class Solution {
         ft f(n+1);
         int cnt=0;
         for(int i=n-1;i>=0;i--){
-            cnt+=f.sum(arr[i]-1);
+            cnt+=f.sum(arr[i]-1); // making sure to check one less element as there might be duplicate element in original array for which same rank would be assigned in bit array
+
+            // updating at index arr[i] by 1 as by compression it converted to rank from 1 to N which is our index in ft , as relative order in array remains same the cnt won't change for inversion
+            // eg. [-2,3,0,2] -> rank -> [1,4,2,3] now inversion cnt remains same ie. 2
             f.update(arr[i],1);
         }
         return cnt;
