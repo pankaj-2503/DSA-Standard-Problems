@@ -7,8 +7,8 @@ public:
         int n1=nums1.size(),n2=nums2.size();
         // we will be performing binary search on smallest array for better tc
         if(n1>n2) return findMedianSortedArrays(nums2,nums1);
-        int low=0,high=n1;
-        int left=(n1+n2+1)/2; // how many element to take on left side of partition
+        int low=0,high=n1; // here we are deliberatly putting high to n istead of n-1 is bcz we want no. of element to take in consideration in first part of partition
+        int left=(n1+n2+1)/2; // how many element to take on left side of partition handles both even and odd lengths
         int n=n1+n2;
         while(low<=high){
             int mid1=low+(high-low)/2;
@@ -22,7 +22,7 @@ public:
             if(mid2-1>=0) l2=nums2[mid2-1];
             if(l1<=r2 && l2<=r1){            // merged array would be sorted if this condition hold
                 if(n%2==1) return max(l1,l2);
-                return (double)(max(l1,l2)+min(r1,r2))/2.0; 
+                return (double)(max(l1,l2)+min(r1,r2))/2.0;
             }
             if(l1>r2) high=mid1-1;
             else low=mid1+1;

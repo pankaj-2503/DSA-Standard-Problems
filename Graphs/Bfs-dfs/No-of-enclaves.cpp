@@ -50,3 +50,41 @@ public:
         return ans;
     }
 };
+
+// without visited array
+class Solution {
+    void dfs(vector<vector<int>>& grid, int r, int c) {
+        int m = grid.size(), n = grid[0].size();
+        if (r < 0 || r >= m || c < 0 || c >= n || grid[r][c] == 0) return;
+
+        grid[r][c] = 0; // Sink the land
+
+        dfs(grid, r + 1, c);
+        dfs(grid, r - 1, c);
+        dfs(grid, r, c + 1);
+        dfs(grid, r, c - 1);
+    }
+
+public:
+    int numEnclaves(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+
+        // 1. Remove boundary-connected land
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if ((r == 0 || r == m - 1 || c == 0 || c == n - 1) && grid[r][c] == 1) {
+                    dfs(grid, r, c);
+                }
+            }
+        }
+
+        // 2. Count remaining land
+        int enclaves = 0;
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == 1) enclaves++;
+            }
+        }
+        return enclaves;
+    }
+};
