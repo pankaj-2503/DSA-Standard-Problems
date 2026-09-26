@@ -1,3 +1,6 @@
+// TC of operation on trie is O(L) , where L is length of string
+// tC of this code -> O(W*L + N*M*(3^(L-1))) , where L is word length and W is total no. of word dfs takes 4 calls but 1 call would be redundant so 3 calls would be made
+
 class TrieNode{
     public:
     TrieNode*children[26];

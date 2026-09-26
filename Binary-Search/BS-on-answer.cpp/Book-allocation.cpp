@@ -1,6 +1,7 @@
 #define ll long long
 class Solution {
 public:
+    // tC -> O(N*log(high-low))
     int solve(vector<int>&a,int k,int mid){
         int sum=0,cnt=1;
         for(int i=0;i<a.size();i++){

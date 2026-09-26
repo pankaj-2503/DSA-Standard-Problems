@@ -1,3 +1,4 @@
+// TC -> O(NlogN + NLog(high-low))
 bool canWePlace(vector<int> &stalls, int dist, int cows) {
     int n = stalls.size(); //size of array
     int cntCows = 1; //no. of cows placed
@@ -21,7 +22,7 @@ int aggressiveCows(vector<int> &stalls, int k) {
     while (low <= high) {
         int mid = (low + high) / 2;
         if (canWePlace(stalls, mid, k) == true) {
-            
+
             low = mid + 1;
         }
         else high = mid - 1;
