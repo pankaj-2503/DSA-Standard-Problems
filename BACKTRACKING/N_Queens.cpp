@@ -1,6 +1,6 @@
 class Solution {
-public: 
-    // Time complexity - O(N!*N) , sapce complexity - O(N)
+public:
+    // Time complexity - O(N!*N) , sapce complexity - O(N^2)
     bool isSafe(int row,int col,vector<string>board,int n){
          int duprow=row,dupcol=col;
          // check previous diagonally upper

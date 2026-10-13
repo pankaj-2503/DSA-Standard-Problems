@@ -1,34 +1,87 @@
 class Solution {
 public:
-   // Time Complexity: O( (2^n) *k*(n/2) , space complexity ~ O(k*x), k is avg. length of palindrom
-   // and x is such palindrom's
-    bool isPalindrome(string s, int start, int end) {
-        while (start <= end) {
-        if (s[start++] != s[end--])
-            return false;
+    // TC -> O(2^(N-1) * N) , SC -> O(2^(N-1) *N) + O(N) auxilary space
+    vector<vector<string>>ans;
+    vector<string>path;
+    bool palindromeCheck(string &s,int i,int j){
+        while(i<=j && s[i]==s[j]){
+            i++;j--;
         }
-        return true;
+        return i>j;
     }
 
-
-    void partitionHelper(int index, string s, vector < string > & path,
-            vector < vector < string > > & res) {
-            if (index == s.size()) {
-            res.push_back(path);
+    void solve(string &s,int idx){
+        if(idx==s.size()){
+            ans.push_back(path);
             return;
+        }
+
+        for(int i=idx;i<s.size();i++){
+            if(palindromeCheck(s,idx,i)){
+                string temp=s.substr(idx,i-idx+1);
+                path.push_back(temp);
+
+                solve(s,i+1);
+
+                path.pop_back();
             }
-            for (int i = index; i < s.size(); ++i) {
-                if (isPalindrome(s, index, i)) {
-                    path.push_back(s.substr(index, i - index + 1));
-                    partitionHelper(i + 1, s, path, res);
-                    path.pop_back();
-                }
-            }
+
+        }
     }
+
+
+
     vector<vector<string>> partition(string s) {
-        vector < vector < string > > res;
-        vector < string > path;
-        partitionHelper(0, s, path, res);
-        return res;
+        solve(s,0);
+        return ans;
+    }
+};
+
+
+// optimising through dp
+
+class Solution {
+public:
+    // TC -> O(2^(N-1) * N) , SC -> O(2^(N-1) *N ) + O(N^2) auxilary space .We can use a 2D boolean DP table or memoization array dp[i][j] that pre-calculates whether the substring from index i to j is a palindrome in $O(1)$ time
+
+
+    vector<vector<string>>ans;
+    vector<string>path;
+    vector<vector<bool>>dp;
+    bool palindromeCheck(string &s,int i,int j){
+        while(i<=j && s[i]==s[j]){
+            i++;j--;
+        }
+        return i>j;
+    }
+
+    void solve(string &s,int idx){
+        if(idx==s.size()){
+            ans.push_back(path);
+            return;
+        }
+
+        for(int i=idx;i<s.size();i++){
+            if(s[idx]==s[i] && (i-idx<=2 || dp[idx+1][i-1] )){
+                dp[idx][i]=true;
+                string temp=s.substr(idx,i-idx+1);
+                path.push_back(temp);
+
+                solve(s,i+1);
+
+                path.pop_back();
+            }
+
+        }
+    }
+
+
+
+    vector<vector<string>> partition(string s) {
+        int n=s.size();
+        dp.assign(n,vector<bool>(n,false));
+        solve(s,0);
+
+        return ans;
     }
 };
